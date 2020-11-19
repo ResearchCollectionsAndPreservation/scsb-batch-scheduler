@@ -28,7 +28,7 @@ public class AccessionReportsTaskletUT extends BaseTestCase {
     @Mock
     GenerateReportsService generateReportsService;
 
-    @Value("${scsb.solr.client.url}")
+    @Value("${scsb.solr.doc.url}")
     String solrClientUrl;
 
     @Mock

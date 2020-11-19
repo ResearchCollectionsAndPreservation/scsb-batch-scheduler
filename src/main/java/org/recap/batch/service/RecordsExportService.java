@@ -2,8 +2,8 @@ package org.recap.batch.service;
 
 import org.recap.RecapConstants;
 import org.recap.util.JobDataParameterUtil;
+import org.recap.util.PropertyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +16,14 @@ import java.util.Map;
 @Service
 public class RecordsExportService {
 
-    @Value("${data.dump.email.cul.to}")
-    private String dataDumpEmailCulTo;
-
-    @Value("${data.dump.email.nypl.to}")
-    private String dataDumpEmailNyplTo;
-
-    @Value("${data.dump.email.pul.to}")
-    private String dataDumpEmailPulTo;
-
     @Autowired
     JobDataParameterUtil jobDataParameterUtil;
     
     @Autowired
     private CommonService commonService;
+
+    @Autowired
+    private PropertyUtil propertyUtil;
 
     
     /**
@@ -41,15 +35,7 @@ public class RecordsExportService {
     public String exportRecords(String scsbEtlUrl, String jobName, Date createdDate, String exportStringDate, String exportInstitution) {
         HttpEntity httpEntity = commonService.getHttpEntity();
         Map<String, String> requestParameterMap = jobDataParameterUtil.buildJobRequestParameterMap(jobName);
-        if (exportInstitution.equalsIgnoreCase("CUL")) {
-            requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, dataDumpEmailCulTo);
-        }
-        else if (exportInstitution.equalsIgnoreCase("PUL")) {
-            requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, dataDumpEmailPulTo);
-        }
-        else if (exportInstitution.equalsIgnoreCase("NYPL")) {
-            requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, dataDumpEmailNyplTo);
-        }
+        requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, propertyUtil.getPropertyByInstitutionAndKey(exportInstitution, "email.data.dump.to"));
         commonService.setRequestParameterMap(requestParameterMap, exportStringDate, jobDataParameterUtil, createdDate);
         ResponseEntity<String> responseEntity = commonService.getRestTemplate().exchange(scsbEtlUrl + RecapConstants.DATA_EXPORT_ETL_URL, HttpMethod.GET, httpEntity, String.class, requestParameterMap);
         return responseEntity.getBody();

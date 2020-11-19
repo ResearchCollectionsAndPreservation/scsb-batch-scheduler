@@ -28,7 +28,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class UpdateJobDetailsServiceUT extends BaseTestCase {
 
-    @Value("${scsb.solr.client.url}")
+    @Value("${scsb.solr.doc.url}")
     String solrClientUrl;
 
     @Mock

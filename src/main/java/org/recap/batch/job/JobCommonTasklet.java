@@ -34,7 +34,7 @@ public class JobCommonTasklet {
     private static final Logger logger = LoggerFactory.getLogger(JobCommonTasklet.class);
 
 
-    @Value("${scsb.solr.client.url}")
+    @Value("${scsb.solr.doc.url}")
     String solrClientUrl;
 
     @Value("${scsb.circ.url}")
