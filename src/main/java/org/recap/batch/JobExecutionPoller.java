@@ -45,7 +45,7 @@ public class JobExecutionPoller {
      * @param jobDetailsRepository   the job details repository
      */
     @Autowired
-    public JobExecutionPoller(@Value("${long.running.jobs.poller.time.in.minutes}") Long jobExecutionPollerTime, JobExplorer jobExplorer, @Value("${scsb.solr.client.url}") String solrClientUrl, EmailService emailService, JobDetailsRepository jobDetailsRepository) {
+    public JobExecutionPoller(@Value("${long.running.jobs.poller.time.in.minutes}") Long jobExecutionPollerTime, JobExplorer jobExplorer, @Value("${scsb.solr.doc.url}") String solrClientUrl, EmailService emailService, JobDetailsRepository jobDetailsRepository) {
         this.jobExecutionPollerTime = jobExecutionPollerTime;
         this.jobExplorer = jobExplorer;
         this.solrClientUrl = solrClientUrl;

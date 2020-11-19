@@ -34,15 +34,6 @@ public class RecordsExportServiceUT  extends BaseTestCase {
     @Mock
     RestTemplate restTemplate;
 
-    @Value("${data.dump.email.cul.to}")
-    private String dataDumpEmailCulTo;
-
-    @Value("${data.dump.email.nypl.to}")
-    private String dataDumpEmailNyplTo;
-
-    @Value("${data.dump.email.pul.to}")
-    private String dataDumpEmailPulTo;
-
     @Ignore
     public void testexportRecords() {
         HttpHeaders headers = new HttpHeaders();

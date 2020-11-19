@@ -10,6 +10,7 @@ import org.recap.RecapConstants;
 import org.recap.model.batch.SolrIndexRequest;
 import org.recap.model.jpa.JobEntity;
 import org.recap.util.JobDataParameterUtil;
+import org.recap.util.PropertyUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -29,7 +30,7 @@ public class CommonServiceUT extends BaseTestCase {
     @Mock
     CommonService commonService;
 
-    @Value("${scsb.solr.client.url}")
+    @Value("${scsb.solr.doc.url}")
     String solrClientUrl;
 
     @Value("${scsb.circ.url}")
@@ -40,15 +41,6 @@ public class CommonServiceUT extends BaseTestCase {
 
     @Mock
     JobDataParameterUtil jobDataParameterUtil;
-
-    @Value("${data.dump.email.cul.to}")
-    private String dataDumpEmailCulTo;
-
-    @Value("${data.dump.email.nypl.to}")
-    private String dataDumpEmailNyplTo;
-
-    @Value("${data.dump.email.pul.to}")
-    private String dataDumpEmailPulTo;
 
     @Test
     public void testExecuteService() throws Exception {
@@ -115,20 +107,6 @@ public class CommonServiceUT extends BaseTestCase {
         String status = commonService.pendingRequest(scsbCircUrl, RecapConstants.CHECK_PENDING_REQUEST_IN_DB);
         assertNotNull(status);
         assertEquals(RecapConstants.SUCCESS, status);
-    }
-
-    @Test
-    public void testsetRequestParameterMap() throws Exception {
-        Date createdDate = new Date(System.currentTimeMillis());
-        Map<String, String> requestParameterMap= new HashMap<>(); ;
-        requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, dataDumpEmailPulTo);
-        String exportStringDate= "2020-07-07";
-        Map<String, String> parameterMap = new HashMap<>();
-      //  JobDataParameterUtil jobDataParameterUtil = new JobDataParameterUtil();
-       // Mockito.when(commonService.setRequestParameterMap(requestParameterMap,exportStringDate,jobDataParameterUtil,createdDate)).thenCallRealMethod();
-      //  String status = commonService.setRequestParameterMap(requestParameterMap,exportStringDate,jobDataParameterUtil,createdDate);
-       // assertNotNull(status);
-       // assertEquals(RecapConstants.SUCCESS, status);
     }
 
     @Test

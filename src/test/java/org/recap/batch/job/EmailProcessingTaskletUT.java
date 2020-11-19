@@ -41,7 +41,7 @@ public class EmailProcessingTaskletUT extends BaseTestCase {
     @Mock
     EmailService emailService;
 
-    @Value("${scsb.solr.client.url}")
+    @Value("${scsb.solr.doc.url}")
     String solrClientUrl;
 
     @Mock
