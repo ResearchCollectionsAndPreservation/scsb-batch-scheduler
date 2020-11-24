@@ -34,7 +34,7 @@ public class StatusReconcilationTasklet extends JobCommonTasklet implements Task
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution,"Status Reconcilation Tasklet", Boolean.FALSE);
-            String resultStatus = statusReconciliationService.statusReconcilation(scsbCircUrl);
+            String resultStatus = statusReconciliationService.statusReconciliation(scsbCoreUrl);
             logger.info("Periodic LAS item status reconciliation status : {}", resultStatus);
             setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {

@@ -40,6 +40,9 @@ public class JobCommonTasklet {
     @Value("${scsb.circ.url}")
     protected String scsbCircUrl;
 
+    @Value("${scsb.core.url}")
+    protected String scsbCoreUrl;
+
     @Value("${scsb.etl.url}")
     String scsbEtlUrl;
 

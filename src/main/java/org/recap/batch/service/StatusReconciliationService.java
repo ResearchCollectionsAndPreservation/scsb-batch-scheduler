@@ -17,10 +17,10 @@ public class StatusReconciliationService {
     private CommonService commonService;
 
     
-    public String statusReconcilation(String scsbCircUrl) {
+    public String statusReconciliation(String scsbCoreUrl) {
         HttpHeaders headers = commonService.getHttpHeaders();
         HttpEntity<JobEntity> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> responseEntity = commonService.getRestTemplate().exchange(scsbCircUrl + RecapConstants.STATUS_RECOCILATION_URL, HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<String> responseEntity = commonService.getRestTemplate().exchange(scsbCoreUrl + RecapConstants.STATUS_RECONCILIATION_URL, HttpMethod.GET, httpEntity, String.class);
         return responseEntity.getBody();
     }
 
