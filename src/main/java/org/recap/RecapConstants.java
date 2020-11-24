@@ -37,7 +37,7 @@ public class RecapConstants {
     public static final String UPDATE_JOB_URL = "updateJobService/updateJob";
     public static final String DAILY_RECONCILATION_URL = "/dailyReconcilation/startDailyReconcilation";
     public static final String ACCESSION_RECOCILATION_URL = "/accessionReconcilation/startAccessionReconcilation";
-    public static final String STATUS_RECOCILATION_URL = "/statusReconciliation/itemStatusReconciliation";
+    public static final String STATUS_RECONCILIATION_URL = "/statusReconciliation/itemStatusReconciliation";
     public static final String REQUEST_DATA_LOAD_URL = "/requestInitialDataLoad/startRequestInitialLoad";
 
     public static final String PURGE_EMAIL_ADDRESS = "PurgeEmailAddress";

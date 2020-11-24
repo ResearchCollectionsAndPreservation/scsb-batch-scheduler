@@ -26,8 +26,8 @@ public class StatusReconcilationTaskletUT extends BaseTestCase {
     @Mock
     StatusReconciliationService statusReconciliationService;
 
-    @Value("${scsb.circ.url}")
-    String scsbCircUrl;
+    @Value("${scsb.core.url}")
+    String scsbCoreUrl;
 
     @Mock
     StatusReconcilationTasklet statusReconcilationTasklet;
@@ -38,7 +38,7 @@ public class StatusReconcilationTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(statusReconciliationService.statusReconcilation(scsbCircUrl)).thenThrow(new NullPointerException());
+        Mockito.when(statusReconciliationService.statusReconciliation(scsbCoreUrl)).thenThrow(new NullPointerException());
         Mockito.when(statusReconcilationTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = statusReconcilationTasklet.execute(contribution,context);
         assertNotNull(status);
@@ -52,7 +52,7 @@ public class StatusReconcilationTaskletUT extends BaseTestCase {
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
         ReflectionTestUtils.setField(statusReconcilationTasklet,"statusReconciliationService",statusReconciliationService);
-        Mockito.when(statusReconciliationService.statusReconcilation(scsbCircUrl)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(statusReconciliationService.statusReconciliation(scsbCoreUrl)).thenReturn(RecapConstants.SUCCESS);
         Mockito.when(statusReconcilationTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = statusReconcilationTasklet.execute(contribution,context);
         assertNotNull(status);
