@@ -68,7 +68,7 @@ dependencies {
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation 'net.logstash.logback:logstash-logback-encoder:6.4'
 
-	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	//implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	//implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 	implementation 'org.json:json:20200518'
 	implementation 'com.google.code.gson:gson:2.8.6'
