@@ -41,7 +41,7 @@ public class AccessionReconcilationTasklet extends JobCommonTasklet implements T
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution,"Accession Reconciliation Tasklet", Boolean.FALSE);
-            String resultStatus = accessionReconcilationService.accessionReconcilation(scsbCircUrl);
+            String resultStatus = accessionReconcilationService.accessionReconcilation(scsbCoreUrl);
             logger.info("Accession Reconciliation status : {}", resultStatus);
             setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {

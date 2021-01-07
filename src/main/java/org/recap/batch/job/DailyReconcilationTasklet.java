@@ -42,7 +42,7 @@ public class DailyReconcilationTasklet extends JobCommonTasklet implements Taskl
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution,"DailyReconcilationTasklet", Boolean.FALSE);
-            String resultStatus = dailyReconcilationService.dailyReconcilation(scsbCircUrl);
+            String resultStatus = dailyReconcilationService.dailyReconcilation(scsbCoreUrl);
             logger.info("Daily Reconciliation Job status : {}", resultStatus);
             setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {

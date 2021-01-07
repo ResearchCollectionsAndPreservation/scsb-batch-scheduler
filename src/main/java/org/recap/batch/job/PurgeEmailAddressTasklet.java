@@ -44,7 +44,7 @@ public class PurgeEmailAddressTasklet extends JobCommonTasklet implements Taskle
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution, "PurgeEmailAddressTasklet", Boolean.FALSE);
-            Map<String, String> resultMap = purgeEmailAddressService.purgeEmailAddress(scsbCircUrl);
+            Map<String, String> resultMap = purgeEmailAddressService.purgeEmailAddress(scsbCoreUrl);
             String status = resultMap.get(RecapCommonConstants.STATUS);
             String message = RecapCommonConstants.PURGE_EDD_REQUEST + ":" + resultMap.get(RecapCommonConstants.PURGE_EDD_REQUEST)
                     + ", " + RecapCommonConstants.PURGE_PHYSICAL_REQUEST + ":" + resultMap.get(RecapCommonConstants.PURGE_PHYSICAL_REQUEST);

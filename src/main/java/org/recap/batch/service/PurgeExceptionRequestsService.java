@@ -19,10 +19,10 @@ public class PurgeExceptionRequestsService {
     /**
      * This method makes a rest call to scsb circ microservice to initiate the process of purging exception requests.
      *
-     * @param scsbCircUrl    the scsb circ url
+     * @param scsbCoreUrl    the scsb core url
      * @return status of purging exception requests process
      */
-    public Map<String, String> purgeExceptionRequests(String scsbCircUrl) {
-        return commonService.executePurge(scsbCircUrl, RecapConstants.PURGE_EXCEPTION_REQUEST_URL);
+    public Map<String, String> purgeExceptionRequests(String scsbCoreUrl) {
+        return commonService.executePurge(scsbCoreUrl, RecapConstants.PURGE_EXCEPTION_REQUEST_URL);
     }
 }

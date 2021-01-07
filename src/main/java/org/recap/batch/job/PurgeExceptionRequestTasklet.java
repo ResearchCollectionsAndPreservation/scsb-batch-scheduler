@@ -43,7 +43,7 @@ public class PurgeExceptionRequestTasklet extends JobCommonTasklet implements Ta
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution, "PurgeExceptionRequestTasklet", Boolean.FALSE);
-            Map<String, String> resultMap = purgeExceptionRequestsService.purgeExceptionRequests(scsbCircUrl);
+            Map<String, String> resultMap = purgeExceptionRequestsService.purgeExceptionRequests(scsbCoreUrl);
             String status = resultMap.get(RecapCommonConstants.STATUS);
             String message = resultMap.get(RecapCommonConstants.MESSAGE);
             logger.info("Purge Exception Requests status : {}", status);

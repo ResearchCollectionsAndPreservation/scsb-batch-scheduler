@@ -18,10 +18,10 @@ public class DailyReconcilationService {
     /**
      * This method makes a rest call to scsb circ microservice to initiate the daily reconciliation process.
      *
-     * @param solrCircUrl    the scsb circ url
+     * @param scsbCoreUrl    the scsb core url
      * @return status of the daily reconciliation process
      */
-    public String dailyReconcilation(String solrCircUrl) {
-        return commonService.executeService(solrCircUrl,  RecapConstants.DAILY_RECONCILATION_URL, HttpMethod.POST);
+    public String dailyReconcilation(String scsbCoreUrl) {
+        return commonService.executeService(scsbCoreUrl,  RecapConstants.DAILY_RECONCILATION_URL, HttpMethod.POST);
     }
 }

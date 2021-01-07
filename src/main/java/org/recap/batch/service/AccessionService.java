@@ -17,11 +17,11 @@ public class AccessionService {
     /**
      * This method makes a rest call to solr client microservice to initiate the accession process.
      *
-     * @param solrClientUrl     the solr client url
+     * @param scsbCoreUrl     the scsb core url
      * @return status of the accession process
      */
-    public String processAccession(String solrClientUrl) {
-        return commonService.executeService(solrClientUrl,  RecapConstants.ACCESSION_URL, HttpMethod.GET);
+    public String processAccession(String scsbCoreUrl) {
+        return commonService.executeService(scsbCoreUrl,  RecapConstants.ACCESSION_URL, HttpMethod.GET);
     }
 
 }

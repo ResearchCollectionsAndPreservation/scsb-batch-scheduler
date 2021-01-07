@@ -46,7 +46,7 @@ public class DeletedRecordsTasklet extends JobCommonTasklet implements Tasklet {
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution,"DeletedRecordsTasklet", Boolean.FALSE);
-            String resultStatus = reportDeletedRecordsService.reportDeletedRecords(scsbCircUrl);
+            String resultStatus = reportDeletedRecordsService.reportDeletedRecords(scsbCoreUrl);
             logger.info("Deleted records status : {} " , resultStatus);
             setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {

@@ -37,13 +37,13 @@ public class ReportDeletedRecordsService {
     /**
      * This method makes a rest call to scsb-circ microservice to report about the deleted records, in important transaction tables in SCSB.
      *
-     * @param scsbCircUrl
+     * @param scsbCoreUrl
      * @return
      */
-    public String reportDeletedRecords(String scsbCircUrl){
+    public String reportDeletedRecords(String scsbCoreUrl){
         HttpEntity httpEntity = commonService.getHttpEntity();
-        logger.info("{},{}", scsbCircUrl , RecapConstants.REPORT_DELETED_RECORDS_URL);
-        ResponseEntity<String> responseEntity = commonService.getRestTemplate().exchange(scsbCircUrl + RecapConstants.REPORT_DELETED_RECORDS_URL, HttpMethod.GET, httpEntity, String.class);
+        logger.info("{},{}", scsbCoreUrl , RecapConstants.REPORT_DELETED_RECORDS_URL);
+        ResponseEntity<String> responseEntity = commonService.getRestTemplate().exchange(scsbCoreUrl + RecapConstants.REPORT_DELETED_RECORDS_URL, HttpMethod.GET, httpEntity, String.class);
         return responseEntity.getBody();
     }
 }
