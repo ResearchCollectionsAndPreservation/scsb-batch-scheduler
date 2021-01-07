@@ -45,7 +45,7 @@ public class MatchingAlgorithmTasklet extends  JobCommonTasklet implements Taskl
         PollingConsumer consumer = null;
         try {
             Date createdDate = getCreatedDate(jobExecution);
-                updateJob(jobExecution, "Matching Algorithm Tasklet", Boolean.TRUE);
+            updateJob(jobExecution, "Matching Algorithm Tasklet", Boolean.TRUE);
             
             Map<String, String> requestMap = new HashMap<>();
             requestMap.put(RecapCommonConstants.JOB_ID, String.valueOf(jobExecution.getId()));

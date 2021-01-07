@@ -43,7 +43,7 @@ public class PurgeAccessionRequestTasklet extends JobCommonTasklet implements Ta
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             updateJob(jobExecution, "PurgeAccessionRequestTasklet", Boolean.FALSE);
-            Map<String, String> resultMap = purgeAccessionRequestsService.purgeAccessionRequests(scsbCircUrl);
+            Map<String, String> resultMap = purgeAccessionRequestsService.purgeAccessionRequests(scsbCoreUrl);
             String status = resultMap.get(RecapCommonConstants.STATUS);
             String message = resultMap.get(RecapCommonConstants.MESSAGE);
             logger.info("Purge Accession Requests status : {}", status);

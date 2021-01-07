@@ -18,10 +18,10 @@ public class PurgeAccessionRequestsService {
     /**
      * This method makes a rest call to scsb circ microservice to initiate the process of purging accession requests.
      *
-     * @param scsbCircUrl    the scsb circ url
+     * @param scsbCoreUrl    the scsb core url
      * @return status of purging accession requests process
      */
-    public Map<String, String> purgeAccessionRequests(String scsbCircUrl) {
-        return commonService.executePurge(scsbCircUrl, RecapConstants.PURGE_ACCESSION_REQUEST_URL);
+    public Map<String, String> purgeAccessionRequests(String scsbCoreUrl) {
+        return commonService.executePurge(scsbCoreUrl, RecapConstants.PURGE_ACCESSION_REQUEST_URL);
     }
 }

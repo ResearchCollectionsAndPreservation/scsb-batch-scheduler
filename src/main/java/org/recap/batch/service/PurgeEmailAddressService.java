@@ -20,10 +20,10 @@ public class PurgeEmailAddressService {
     /**
      * This method makes a rest call to scsb circ microservice to initiate the process of purging email addresses.
      *
-     * @param scsbCircUrl    the scsb circ url
+     * @param scsbCoreUrl    the scsb core url
      * @return status of purging email addresses process
      */
-    public Map<String, String> purgeEmailAddress(String scsbCircUrl) {
-        return commonService.executePurge(scsbCircUrl, RecapConstants.PURGE_EMAIL_URL);
+    public Map<String, String> purgeEmailAddress(String scsbCoreUrl) {
+        return commonService.executePurge(scsbCoreUrl, RecapConstants.PURGE_EMAIL_URL);
     }
 }

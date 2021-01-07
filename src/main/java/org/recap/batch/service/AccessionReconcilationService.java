@@ -17,10 +17,10 @@ public class AccessionReconcilationService {
     /**
      * This method makes a rest call to scsb circ microservice to initiate the accession reconciliation process.
      *
-     * @param scsbCircUrl    the scsb circ url
+     * @param scsbCoreUrl    the scsb core url
      * @return status of the accession reconciliation process
      */
-    public String accessionReconcilation(String scsbCircUrl) {
-        return commonService.executeService(scsbCircUrl,  RecapConstants.ACCESSION_RECOCILATION_URL, HttpMethod.POST);
+    public String accessionReconcilation(String scsbCoreUrl) {
+        return commonService.executeService(scsbCoreUrl,  RecapConstants.ACCESSION_RECOCILATION_URL, HttpMethod.POST);
     }
 }
