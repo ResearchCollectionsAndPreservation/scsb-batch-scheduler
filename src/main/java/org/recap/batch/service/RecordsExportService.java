@@ -1,9 +1,12 @@
 package org.recap.batch.service;
 
 import org.recap.RecapConstants;
+import org.recap.spring.ApplicationContextProvider;
+import org.recap.spring.PropertyValueProvider;
 import org.recap.util.JobDataParameterUtil;
 import org.recap.util.PropertyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +38,11 @@ public class RecordsExportService {
     public String exportRecords(String scsbEtlUrl, String jobName, Date createdDate, String exportStringDate, String exportInstitution) {
         HttpEntity httpEntity = commonService.getHttpEntity();
         Map<String, String> requestParameterMap = jobDataParameterUtil.buildJobRequestParameterMap(jobName);
-        requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, propertyUtil.getPropertyByInstitutionAndKey(exportInstitution, "email.data.dump.to"));
+
+        ApplicationContext applicationContext = ApplicationContextProvider.getInstance().getApplicationContext();
+        String emailTo = applicationContext.getBean(PropertyValueProvider.class).getProperty(exportInstitution.toLowerCase() + ".email.data.dump.to");
+
+        requestParameterMap.put(RecapConstants.EMAIL_TO_ADDRESS, emailTo);
         commonService.setRequestParameterMap(requestParameterMap, exportStringDate, jobDataParameterUtil, createdDate);
         ResponseEntity<String> responseEntity = commonService.getRestTemplate().exchange(scsbEtlUrl + RecapConstants.DATA_EXPORT_ETL_URL, HttpMethod.GET, httpEntity, String.class, requestParameterMap);
         return responseEntity.getBody();
