@@ -23,14 +23,15 @@ public class AccessionTasklet extends JobCommonTasklet implements Tasklet {
 
     /**
      * This method starts the execution of the accession job.
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        logger.info("Executing AccessionReportsTasklet");
+        logger.info("Executing AccessionTasklet");
         StepExecution stepExecution = chunkContext.getStepContext().getStepExecution();
         JobExecution jobExecution = stepExecution.getJobExecution();
         ExecutionContext executionContext = jobExecution.getExecutionContext();
@@ -38,7 +39,6 @@ public class AccessionTasklet extends JobCommonTasklet implements Tasklet {
         String resultStatus = getResultStatus(jobExecution, stepExecution, logger, executionContext, RecapCommonConstants.ACCESSION_JOB_INITIATE_QUEUE, RecapCommonConstants.ACCESSION_JOB_COMPLETION_OUTGOING_QUEUE, RecapConstants.ACCESSION_STATUS_NAME);
 
         logger.info("Job Id : {} Accession Job Result Status : {}", jobExecution.getId(), resultStatus);
-
         if (!StringUtils.containsIgnoreCase(resultStatus, RecapConstants.SUCCESS) && !RecapCommonConstants.ACCESSION_NO_PENDING_REQUESTS.equals(resultStatus)) {
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, RecapConstants.ACCESSION_STATUS_NAME + " " + resultStatus);

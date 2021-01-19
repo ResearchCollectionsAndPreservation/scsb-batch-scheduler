@@ -34,7 +34,7 @@ public class IncrementalExportPulTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(incrementalExportPulTasklet.executeIncrementalExport(contribution, context, logger, "PUL")).thenCallRealMethod();
+        Mockito.when(incrementalExportPulTasklet.executeIncrementalExport(context, logger, "PUL")).thenCallRealMethod();
         Mockito.when(incrementalExportPulTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = incrementalExportPulTasklet.execute(contribution,context);
 
@@ -46,7 +46,7 @@ public class IncrementalExportPulTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(incrementalExportCulTasklet.executeIncrementalExport(contribution, context, logger, "NYPL")).thenCallRealMethod();
+        Mockito.when(incrementalExportCulTasklet.executeIncrementalExport(context, logger, "NYPL")).thenCallRealMethod();
         Mockito.when(incrementalExportCulTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = incrementalExportCulTasklet.execute(contribution,context);
 
@@ -58,7 +58,7 @@ public class IncrementalExportPulTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(incrementalExportNyplTasklet.executeIncrementalExport(contribution, context, logger, "CUL")).thenCallRealMethod();
+        Mockito.when(incrementalExportNyplTasklet.executeIncrementalExport(context, logger, "CUL")).thenCallRealMethod();
         Mockito.when(incrementalExportNyplTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = incrementalExportNyplTasklet.execute(contribution,context);
 

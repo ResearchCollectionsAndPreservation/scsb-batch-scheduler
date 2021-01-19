@@ -18,6 +18,14 @@ public class StartOrStopPollingLongRunningJobsTasklet implements Tasklet {
 
     private static final Logger logger = LoggerFactory.getLogger(StartOrStopPollingLongRunningJobsTasklet.class);
 
+    /**
+     * This method starts or stops the execution of polling log running jobs.
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
+     */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         logger.info("Executing StartOrStopPollingLongRunningJobsTasklet");

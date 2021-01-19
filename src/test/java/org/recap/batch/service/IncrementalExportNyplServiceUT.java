@@ -29,40 +29,28 @@ public class IncrementalExportNyplServiceUT extends BaseTestCase {
     @Mock
     RecordsExportService recordsExportService;
 
-    @Mock
-    IncrementalExportNyplService incrementalExportNyplService;
-
-    @Mock
-    IncrementalExportCulService incrementalExportCulService;
-
-    @Mock
-    IncrementalExportPulService incrementalExportPulService;
-
     Date createdDate = new Date(System.currentTimeMillis());
     String exportStringDate= "2020-07-07";
 
     @Test
     public void testIncrementalExportNypl() throws Exception {
-        ReflectionTestUtils.setField(incrementalExportNyplService,"recordsExportService",recordsExportService);
-        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,"NYPL")).thenReturn(RecapConstants.SUCCESS);
-        Mockito.when(incrementalExportNyplService.incrementalExportNypl(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_NYPL,createdDate,exportStringDate)).thenCallRealMethod();
-        String status = incrementalExportNyplService.incrementalExportNypl(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_NYPL,createdDate,exportStringDate);
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.NYPL)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.NYPL)).thenCallRealMethod();
+        String status = recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.NYPL);
 
     }
     @Test
     public void testIncrementalExportCul() throws Exception {
-        ReflectionTestUtils.setField(incrementalExportCulService,"recordsExportService",recordsExportService);
-        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,"CUL")).thenReturn(RecapConstants.SUCCESS);
-        Mockito.when(incrementalExportCulService.incrementalExportCul(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_CUL,createdDate,exportStringDate)).thenCallRealMethod();
-        String status = incrementalExportCulService.incrementalExportCul(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_CUL,createdDate,exportStringDate);
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.COLUMBIA)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.COLUMBIA)).thenCallRealMethod();
+        String status = recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.COLUMBIA);
 
     }
     @Test
     public void testIncrementalExportPul() throws Exception {
-        ReflectionTestUtils.setField(incrementalExportPulService,"recordsExportService",recordsExportService);
-        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,"PUL")).thenReturn(RecapConstants.SUCCESS);
-        Mockito.when(incrementalExportPulService.incrementalExportPul(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_PUL,createdDate,exportStringDate)).thenCallRealMethod();
-        String status = incrementalExportPulService.incrementalExportPul(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_PUL,createdDate,exportStringDate);
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.PRINCETON)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.PRINCETON)).thenCallRealMethod();
+        String status = recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.DATA_EXPORT_ETL_URL,createdDate,exportStringDate,RecapCommonConstants.PRINCETON);
 
     }
 }

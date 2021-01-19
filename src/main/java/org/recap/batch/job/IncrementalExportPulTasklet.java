@@ -1,5 +1,6 @@
 package org.recap.batch.job;
 
+import org.recap.RecapCommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -17,14 +18,15 @@ public class IncrementalExportPulTasklet extends IncrementalExportTasklet implem
     /**
      * This method starts the execution of incremental export job for Princeton.
      *
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        return executeIncrementalExport(contribution, chunkContext, logger, "PUL");
+        logger.info("Executing - IncrementalExportPulTasklet");
+        return executeIncrementalExport(chunkContext, logger, RecapCommonConstants.PRINCETON);
     }
 }
 

@@ -1,15 +1,13 @@
 package org.recap.batch.job;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.recap.RecapCommonConstants;
 import org.recap.RecapConstants;
-import org.recap.batch.service.DeletedRecordsExportCulService;
-import org.recap.batch.service.DeletedRecordsExportNyplService;
-import org.recap.batch.service.DeletedRecordsExportPulService;
+import org.recap.batch.service.RecordsExportService;
 import org.slf4j.Logger;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.item.ExecutionContext;
@@ -21,50 +19,29 @@ import java.util.Date;
 public class DeletedRecordsExportTasklet extends JobCommonTasklet {
 
     @Autowired
-    private DeletedRecordsExportCulService deletedRecordsExportCulService;
-
-    @Autowired
-    private DeletedRecordsExportNyplService deletedRecordsExportNyplService;
-
-    @Autowired
-    private DeletedRecordsExportPulService deletedRecordsExportPulService;
-    
-    
-    
-    
+    private RecordsExportService recordsExportService;
 
     /**
-     * This method starts the execution of deleted records export job for Columbia.
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     * This method starts the execution of deleted records export job for any passed institution.
+     *
+     * @param chunkContext chunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
-    public RepeatStatus executeDeletedRecordsExport(StepContribution contribution, ChunkContext chunkContext, Logger logger, String exportInstitution, Boolean check) throws Exception {
-        logger.info("Executing DeletedRecordsExport {}Tasklet", exportInstitution);
+    public RepeatStatus executeDeletedRecordsExport(ChunkContext chunkContext, Logger logger, String exportInstitution, Boolean check) throws Exception {
+        logger.info("Executing DeletedRecordsExport for {}", exportInstitution);
         StepExecution stepExecution = chunkContext.getStepContext().getStepExecution();
         JobExecution jobExecution = stepExecution.getJobExecution();
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
             String exportStringDate = jobExecution.getJobParameters().getString(RecapConstants.FROM_DATE);
             Date createdDate = jobExecution.getCreateTime();
-            updateJob(jobExecution,"Deleted Records Export " + exportInstitution + " Tasklet", check);
-            String resultStatus = null;
-            if (exportInstitution.equalsIgnoreCase("CUL")) {
-                resultStatus = deletedRecordsExportCulService.deletedRecordsExportCul(scsbEtlUrl, RecapConstants.DELETED_RECORDS_EXPORT_CUL, createdDate, exportStringDate);
-                logger.info("Deleted Records Export CUL status : {}", resultStatus);
-            }
-            if (exportInstitution.equalsIgnoreCase("PUL")) {
-                resultStatus = deletedRecordsExportPulService.deletedRecordsExportPul(scsbEtlUrl, RecapConstants.DELETED_RECORDS_EXPORT_PUL, createdDate, exportStringDate);
-                logger.info("Deleted Records Export PUL status : {}", resultStatus);
-            }
-            if (exportInstitution.equalsIgnoreCase("NYPL")) {
-                resultStatus = deletedRecordsExportNyplService.deletedRecordsExportNypl(scsbEtlUrl, RecapConstants.DELETED_RECORDS_EXPORT_NYPL, createdDate, exportStringDate);
-                logger.info("Deleted Records Export NYPL status : {}", resultStatus);
-            }
-           setExecutionContext(executionContext, stepExecution, resultStatus);
+            updateJob(jobExecution, "DeletedRecordsExport" + StringUtils.capitalize(exportInstitution.toLowerCase()) + "Tasklet", check);
+            String resultStatus = recordsExportService.exportRecords(scsbEtlUrl, RecapConstants.DELETED_RECORDS_EXPORT + StringUtils.capitalize(exportInstitution.toLowerCase()), createdDate, exportStringDate, exportInstitution);
+            logger.info("Deleted Records Export {} status : {}", exportInstitution, resultStatus);
+            setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {
-            logger.error(RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {}", RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));

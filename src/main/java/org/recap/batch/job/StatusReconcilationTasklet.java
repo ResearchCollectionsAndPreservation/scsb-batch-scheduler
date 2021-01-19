@@ -26,6 +26,14 @@ public class StatusReconcilationTasklet extends JobCommonTasklet implements Task
     @Autowired
     private StatusReconciliationService statusReconciliationService;
 
+    /**
+     * This method starts the execution of status reconciliation job.
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
+     */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         logger.info("Executing Status Reconciliation");
@@ -33,12 +41,12 @@ public class StatusReconcilationTasklet extends JobCommonTasklet implements Task
         JobExecution jobExecution = stepExecution.getJobExecution();
         ExecutionContext executionContext = jobExecution.getExecutionContext();
         try {
-            updateJob(jobExecution,"Status Reconcilation Tasklet", Boolean.FALSE);
+            updateJob(jobExecution,"Status Reconciliation Tasklet", Boolean.FALSE);
             String resultStatus = statusReconciliationService.statusReconciliation(scsbCoreUrl);
             logger.info("Periodic LAS item status reconciliation status : {}", resultStatus);
             setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {
-            logger.error(RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {}", RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));

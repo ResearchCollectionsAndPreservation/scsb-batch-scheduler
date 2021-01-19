@@ -33,9 +33,8 @@ public class JobCommonTasklet {
 
     private static final Logger logger = LoggerFactory.getLogger(JobCommonTasklet.class);
 
-
     @Value("${scsb.solr.doc.url}")
-    String solrClientUrl;
+    protected String solrClientUrl;
 
     @Value("${scsb.circ.url}")
     protected String scsbCircUrl;
@@ -44,8 +43,7 @@ public class JobCommonTasklet {
     protected String scsbCoreUrl;
 
     @Value("${scsb.etl.url}")
-    String scsbEtlUrl;
-
+    protected String scsbEtlUrl;
 
     @Autowired
     protected CamelContext camelContext;
@@ -76,7 +74,7 @@ public class JobCommonTasklet {
             }
         }
         catch (Exception ex) {
-            logger.error(" {} {} ",RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {} ",RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, statusName + " " + ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));
@@ -86,13 +84,13 @@ public class JobCommonTasklet {
                 consumer.close();
             }
         }
-            return resultStatus;
+        return resultStatus;
     }
     public void updateJob(JobExecution jobExecution, String taskletName, Boolean check) throws Exception {
         long jobInstanceId = jobExecution.getJobInstance().getInstanceId();
         String jobName = jobExecution.getJobInstance().getJobName();
         Date createdDate = jobExecution.getCreateTime();
-        if(check.booleanValue()) {
+        if(Boolean.TRUE.equals(check)) {
             String jobNameParam = (String) jobExecution.getExecutionContext().get(RecapConstants.JOB_NAME);
             logger.info("Job Parameter in {} : {}" , taskletName , jobNameParam);
             if (!jobName.equalsIgnoreCase(jobNameParam)) {
@@ -116,8 +114,7 @@ public class JobCommonTasklet {
         }
         return executionContext;
     }
-    public JobDetailImpl setJobDetailImpl(JobDetailImpl jobDetailImpl, String jobName, JobLauncher jobLauncher, JobLocator jobLocator)
-    {
+    public void setJobDetailImpl(JobDetailImpl jobDetailImpl, String jobName, JobLauncher jobLauncher, JobLocator jobLocator) {
         jobDetailImpl.setName(jobName);
         jobDetailImpl.setJobClass(QuartzJobLauncher.class);
         JobDataMap jobDataMap = new JobDataMap();
@@ -125,7 +122,6 @@ public class JobCommonTasklet {
         jobDataMap.put(RecapConstants.JOB_LAUNCHER, jobLauncher);
         jobDataMap.put(RecapConstants.JOB_LOCATOR, jobLocator);
         jobDetailImpl.setJobDataMap(jobDataMap);
-        return jobDetailImpl;
     }
 
     protected Date getCreatedDate(JobExecution jobExecution) {
