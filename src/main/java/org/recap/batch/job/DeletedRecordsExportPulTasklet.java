@@ -1,5 +1,6 @@
 package org.recap.batch.job;
 
+import org.recap.RecapCommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -14,8 +15,17 @@ public class DeletedRecordsExportPulTasklet extends DeletedRecordsExportTasklet 
 
     private static final Logger logger = LoggerFactory.getLogger(DeletedRecordsExportPulTasklet.class);
 
+    /**
+     * This method starts the execution of deleted records export job for Princeton.
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
+     */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        return executeDeletedRecordsExport(contribution, chunkContext, logger,  "PUL", Boolean.TRUE);
-            }
+        logger.info("Executing - DeletedRecordsExportPulTasklet");
+        return executeDeletedRecordsExport(chunkContext, logger, RecapCommonConstants.PRINCETON, Boolean.TRUE);
     }
+}

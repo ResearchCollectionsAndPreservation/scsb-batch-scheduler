@@ -31,10 +31,11 @@ public class DataExportJobSequenceTasklet extends JobCommonTasklet implements Ta
 
     /**
      * This method starts the execution of incremental and delete data export.
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
@@ -58,7 +59,7 @@ public class DataExportJobSequenceTasklet extends JobCommonTasklet implements Ta
                 stepExecution.setExitStatus(new ExitStatus(RecapConstants.SUCCESS, RecapConstants.DATA_EXPORT_STATUS_NAME + " " + resultStatus));
             }
         } catch (Exception ex) {
-            logger.error(RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {}", RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, RecapConstants.DATA_EXPORT_STATUS_NAME + " " + ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));

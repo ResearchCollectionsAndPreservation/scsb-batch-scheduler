@@ -57,6 +57,8 @@ public class RecapConstants {
     public static final String DELETED_RECORDS_EXPORT_PUL = "DeletedRecordsExportPul";
     public static final String DELETED_RECORDS_EXPORT_CUL = "DeletedRecordsExportCul";
     public static final String DELETED_RECORDS_EXPORT_NYPL = "DeletedRecordsExportNypl";
+    public static final String DELETED_RECORDS_EXPORT = "DeletedRecordsExport";
+    public static final String INCREMENTAL_RECORDS_EXPORT = "IncrementalRecordsExport";
     public static final String DATE = "date";
     public static final String EXPORT_DATE_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String FETCH_TYPE = "fetchType";

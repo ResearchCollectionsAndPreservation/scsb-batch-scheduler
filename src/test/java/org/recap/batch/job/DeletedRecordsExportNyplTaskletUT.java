@@ -37,7 +37,7 @@ public class DeletedRecordsExportNyplTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(deletedRecordsExportPulTasklet.executeDeletedRecordsExport(contribution, context, logger, "PUL",true)).thenCallRealMethod();
+        Mockito.when(deletedRecordsExportPulTasklet.executeDeletedRecordsExport(context, logger, "PUL",true)).thenCallRealMethod();
         Mockito.when(deletedRecordsExportPulTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = deletedRecordsExportPulTasklet.execute(contribution,context);
         assertNull(status);
@@ -49,7 +49,7 @@ public class DeletedRecordsExportNyplTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(deletedRecordsExportCulTasklet.executeDeletedRecordsExport(contribution, context, logger, "CUL",true)).thenCallRealMethod();
+        Mockito.when(deletedRecordsExportCulTasklet.executeDeletedRecordsExport(context, logger, "CUL",true)).thenCallRealMethod();
         Mockito.when(deletedRecordsExportCulTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = deletedRecordsExportCulTasklet.execute(contribution,context);
         assertNull(status);
@@ -61,7 +61,7 @@ public class DeletedRecordsExportNyplTaskletUT extends BaseTestCase {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
-        Mockito.when(deletedRecordsExportNyplTasklet.executeDeletedRecordsExport(contribution, context, logger, "NYPL",true)).thenCallRealMethod();
+        Mockito.when(deletedRecordsExportNyplTasklet.executeDeletedRecordsExport(context, logger, "NYPL",true)).thenCallRealMethod();
         Mockito.when(deletedRecordsExportNyplTasklet.execute(contribution,context)).thenCallRealMethod();
         RepeatStatus status = deletedRecordsExportNyplTasklet.execute(contribution,context);
         assertNull(status);

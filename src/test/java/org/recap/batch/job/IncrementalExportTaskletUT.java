@@ -5,11 +5,9 @@ import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.recap.BaseTestCase;
+import org.recap.RecapCommonConstants;
 import org.recap.RecapConstants;
-import org.recap.batch.service.AccessionReconcilationService;
-import org.recap.batch.service.IncrementalExportCulService;
-import org.recap.batch.service.IncrementalExportNyplService;
-import org.recap.batch.service.IncrementalExportPulService;
+import org.recap.batch.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.*;
@@ -30,87 +28,74 @@ import static org.junit.Assert.assertNotNull;
  */
 
 public class IncrementalExportTaskletUT extends BaseTestCase {
+    
     private static final Logger logger = LoggerFactory.getLogger(IncrementalExportTaskletUT.class);
-
-
-    @Mock
-    IncrementalExportNyplService incrementalExportNyplService;
-
-    @Mock
-    IncrementalExportCulService incrementalExportCulService;
-
-    @Mock
-    IncrementalExportPulService incrementalExportPulService;
 
     @Value("${scsb.etl.url}")
     String scsbEtlUrl;
 
     @Mock
     IncrementalExportTasklet incrementalExportTasklet;
+    
+    @Mock
+    RecordsExportService recordsExportService;
 
     @Test
-    public void testexecute_cul() throws Exception {
-        StepContribution contribution = new StepContribution(new StepExecution("StatusReconcilationStep", new JobExecution(new JobInstance(25L, "PeriodicLASItemStatusReconciliation"),new JobParameters())));
+    public void testExecute_cul() throws Exception {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
         JobExecution jobExecution = execution.getJobExecution();
         String exportStringDate = jobExecution.getJobParameters().getString(RecapConstants.FROM_DATE);
         Date createdDate = jobExecution.getCreateTime();
-        ReflectionTestUtils.setField(incrementalExportTasklet,"incrementalExportCulService",incrementalExportCulService);
-        Mockito.when(incrementalExportCulService.incrementalExportCul(scsbEtlUrl,RecapConstants.INCREMENTAL_RECORDS_EXPORT_CUL,createdDate, exportStringDate)).thenReturn(RecapConstants.SUCCESS);
-        Mockito.when(incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"CUL")).thenCallRealMethod();
-        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"CUL");
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_CUL, createdDate, exportStringDate, RecapCommonConstants.COLUMBIA)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.COLUMBIA)).thenCallRealMethod();
+        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.COLUMBIA);
         assertNotNull(status);
         assertEquals(RepeatStatus.FINISHED,status);
     }
 
     @Test
-    public void testexecute_pul() throws Exception {
-        StepContribution contribution = new StepContribution(new StepExecution("StatusReconcilationStep", new JobExecution(new JobInstance(25L, "PeriodicLASItemStatusReconciliation"),new JobParameters())));
+    public void testExecute_pul() throws Exception {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
         JobExecution jobExecution = execution.getJobExecution();
         String exportStringDate = jobExecution.getJobParameters().getString(RecapConstants.FROM_DATE);
         Date createdDate = jobExecution.getCreateTime();
-        ReflectionTestUtils.setField(incrementalExportTasklet,"incrementalExportPulService",incrementalExportPulService);
-        Mockito.when(incrementalExportPulService.incrementalExportPul(scsbEtlUrl,RecapConstants.INCREMENTAL_RECORDS_EXPORT_PUL,createdDate, exportStringDate)).thenReturn(RecapConstants.SUCCESS);
-        Mockito.when(incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"PUL")).thenCallRealMethod();
-        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"PUL");
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.INCREMENTAL_RECORDS_EXPORT_PUL,createdDate, exportStringDate, RecapCommonConstants.PRINCETON)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.PRINCETON)).thenCallRealMethod();
+        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.PRINCETON);
         assertNotNull(status);
         assertEquals(RepeatStatus.FINISHED,status);
     }
 
     @Test
-    public void testexecute_nypl() throws Exception {
-        StepContribution contribution = new StepContribution(new StepExecution("StatusReconcilationStep", new JobExecution(new JobInstance(25L, "PeriodicLASItemStatusReconciliation"),new JobParameters())));
+    public void testExecute_nypl() throws Exception {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
         JobExecution jobExecution = execution.getJobExecution();
         String exportStringDate = jobExecution.getJobParameters().getString(RecapConstants.FROM_DATE);
         Date createdDate = jobExecution.getCreateTime();
-        ReflectionTestUtils.setField(incrementalExportTasklet,"incrementalExportNyplService",incrementalExportNyplService);
-        Mockito.when(incrementalExportNyplService.incrementalExportNypl(scsbEtlUrl,RecapConstants.INCREMENTAL_RECORDS_EXPORT_NYPL,createdDate, exportStringDate)).thenReturn(RecapConstants.SUCCESS);
-        Mockito.when(incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"NYPL")).thenCallRealMethod();
-        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"NYPL");
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl,RecapConstants.INCREMENTAL_RECORDS_EXPORT_NYPL,createdDate, exportStringDate, RecapCommonConstants.NYPL)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.NYPL)).thenCallRealMethod();
+        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.NYPL);
         assertNotNull(status);
         assertEquals(RepeatStatus.FINISHED,status);
     }
 
     @Test
-    public void testexecute_exception() throws Exception {
-        StepContribution contribution = new StepContribution(new StepExecution("StatusReconcilationStep", new JobExecution(new JobInstance(25L, "PeriodicLASItemStatusReconciliation"),new JobParameters())));
+    public void testExecute_exception() throws Exception {
         StepExecution execution = MetaDataInstanceFactory.createStepExecution();
         execution.setCommitCount(2);
         ChunkContext context = new ChunkContext(new StepContext(execution));
         JobExecution jobExecution = execution.getJobExecution();
         String exportStringDate = jobExecution.getJobParameters().getString(RecapConstants.FROM_DATE);
         Date createdDate = jobExecution.getCreateTime();
-        Mockito.when(incrementalExportPulService.incrementalExportPul(scsbEtlUrl,RecapConstants.INCREMENTAL_RECORDS_EXPORT_PUL,createdDate, exportStringDate)).thenThrow(new NullPointerException());
-        Mockito.when(incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"PUL")).thenCallRealMethod();
-        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(contribution,context,logger,"PUL");
+        Mockito.when(recordsExportService.exportRecords(scsbEtlUrl, RecapConstants.INCREMENTAL_RECORDS_EXPORT_PUL, createdDate, exportStringDate, RecapCommonConstants.PRINCETON)).thenThrow(new NullPointerException());
+        Mockito.when(incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.PRINCETON)).thenCallRealMethod();
+        RepeatStatus status = incrementalExportTasklet.executeIncrementalExport(context,logger,RecapCommonConstants.PRINCETON);
         assertNotNull(status);
         assertEquals(RepeatStatus.FINISHED,status);
     }

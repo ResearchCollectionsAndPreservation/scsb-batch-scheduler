@@ -36,10 +36,11 @@ public class EmailProcessingTasklet extends JobCommonTasklet implements Tasklet 
 
     /**
      * This method starts the execution of the email processing job.
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
@@ -67,7 +68,7 @@ public class EmailProcessingTasklet extends JobCommonTasklet implements Tasklet 
             logger.info("Email sending - {}", result);
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.SUCCESS, RecapConstants.SUCCESS));
         } catch (Exception ex) {
-            logger.error(RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {}", RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));
         }
         return RepeatStatus.FINISHED;

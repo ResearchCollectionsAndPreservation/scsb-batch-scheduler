@@ -1,5 +1,6 @@
 package org.recap.batch.job;
 
+import org.recap.RecapCommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.StepContribution;
@@ -16,13 +17,15 @@ public class DeletedRecordsExportCulTasklet extends DeletedRecordsExportTasklet 
 
     /**
      * This method starts the execution of deleted records export job for Columbia.
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        return executeDeletedRecordsExport(contribution, chunkContext, logger,  "CUL", Boolean.TRUE);
+        logger.info("Executing - DeletedRecordsExportCulTasklet");
+        return executeDeletedRecordsExport(chunkContext, logger, RecapCommonConstants.COLUMBIA, Boolean.TRUE);
     }
 }

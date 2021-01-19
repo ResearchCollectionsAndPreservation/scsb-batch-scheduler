@@ -3,6 +3,7 @@ package org.recap.activemq;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.component.activemq.ActiveMQComponent;
 import org.apache.camel.CamelContext;
+import org.recap.RecapCommonConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -27,6 +28,6 @@ public class ActivemqRegistrar {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(defaultBrokerURL);
         ActiveMQComponent activeMQComponent = new ActiveMQComponent();
         activeMQComponent.setConnectionFactory(connectionFactory);
-        camelContext.addComponent("scsbactivemq", activeMQComponent);
+        camelContext.addComponent(RecapCommonConstants.SCSB_ACTIVEMQ_COMPONENT_NAME, activeMQComponent);
     }
 }

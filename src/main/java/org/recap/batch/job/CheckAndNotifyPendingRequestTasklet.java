@@ -28,14 +28,15 @@ public class CheckAndNotifyPendingRequestTasklet extends JobCommonTasklet implem
 
     /**
      * This method starts the execution for checking pending request in the lasOutgoingQ and notifying through sending email.
-     * @param contribution
-     * @param chunkContext
-     * @return
-     * @throws Exception
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
      */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        logger.info("Executing Pending Queues Check.");
+        logger.info("Executing CheckAndNotifyPendingRequestTasklet");
         StepExecution stepExecution = chunkContext.getStepContext().getStepExecution();
         JobExecution jobExecution = stepExecution.getJobExecution();
         ExecutionContext executionContext = jobExecution.getExecutionContext();
@@ -43,7 +44,7 @@ public class CheckAndNotifyPendingRequestTasklet extends JobCommonTasklet implem
             updateJob(jobExecution, "CheckAndNotifyPendingRequestTasklet", Boolean.FALSE);
             checkAndNotifyPendingRequestService.checkPendingMsgesInQueue(scsbCircUrl);
         } catch (Exception ex) {
-            logger.error(RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {}", RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));

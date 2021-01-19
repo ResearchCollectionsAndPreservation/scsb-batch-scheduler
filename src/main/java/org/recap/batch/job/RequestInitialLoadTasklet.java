@@ -26,6 +26,14 @@ public class RequestInitialLoadTasklet extends JobCommonTasklet implements Taskl
     @Autowired
     private RequestInitialLoadService requestInitialLoadService;
 
+    /**
+     * This method starts the execution of Request Initial Loas.
+     *
+     * @param contribution StepContribution
+     * @param chunkContext ChunkContext
+     * @return RepeatStatus
+     * @throws Exception Exception Class
+     */
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         logger.info("Executing Request Initial Load..........");
@@ -38,7 +46,7 @@ public class RequestInitialLoadTasklet extends JobCommonTasklet implements Taskl
             logger.info("Request Initial Load status : {}", resultStatus);
             setExecutionContext(executionContext, stepExecution, resultStatus);
         } catch (Exception ex) {
-            logger.error(RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
+            logger.error("{} {}", RecapCommonConstants.LOG_ERROR, ExceptionUtils.getMessage(ex));
             executionContext.put(RecapConstants.JOB_STATUS, RecapConstants.FAILURE);
             executionContext.put(RecapConstants.JOB_STATUS_MESSAGE, ExceptionUtils.getMessage(ex));
             stepExecution.setExitStatus(new ExitStatus(RecapConstants.FAILURE, ExceptionUtils.getFullStackTrace(ex)));
