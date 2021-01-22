@@ -35,8 +35,8 @@ public class RecapConstants {
     public static final String ACCESSION_URL = "sharedCollection/ongoingAccessionJob";
     public static final String BATCH_JOB_EMAIL_URL = "batchJobEmailService/batchJobEmail";
     public static final String UPDATE_JOB_URL = "updateJobService/updateJob";
-    public static final String DAILY_RECONCILATION_URL = "/dailyReconcilation/startDailyReconcilation";
-    public static final String ACCESSION_RECOCILATION_URL = "/accessionReconcilation/startAccessionReconcilation";
+    public static final String DAILY_RECONCILIATION_URL = "/dailyReconciliation/startDailyReconciliation";
+    public static final String ACCESSION_RECOCILIATION_URL = "/accessionReconciliation/startAccessionReconciliation";
     public static final String STATUS_RECONCILIATION_URL = "/statusReconciliation/itemStatusReconciliation";
     public static final String REQUEST_DATA_LOAD_URL = "/requestInitialDataLoad/startRequestInitialLoad";
 

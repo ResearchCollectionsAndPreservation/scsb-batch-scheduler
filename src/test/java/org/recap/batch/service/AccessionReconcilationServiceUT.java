@@ -44,8 +44,8 @@ public class AccessionReconcilationServiceUT extends BaseTestCase{
 
         ResponseEntity<String> responseEntity = new ResponseEntity<>(RecapConstants.SUCCESS, HttpStatus.OK);
         Mockito.when(accessionReconcilationService.commonService.getRestTemplate()).thenReturn(restTemplate);
-        Mockito.when(accessionReconcilationService.commonService.getRestTemplate().exchange(scsbCircUrl + RecapConstants.ACCESSION_RECOCILATION_URL, HttpMethod.POST, httpEntity, String.class)).thenReturn(responseEntity);
-        Mockito.when(accessionReconcilationService.commonService.executeService(scsbCircUrl,RecapConstants.ACCESSION_RECOCILATION_URL, HttpMethod.POST)).thenReturn(RecapConstants.SUCCESS);
+        Mockito.when(accessionReconcilationService.commonService.getRestTemplate().exchange(scsbCircUrl + RecapConstants.ACCESSION_RECOCILIATION_URL, HttpMethod.POST, httpEntity, String.class)).thenReturn(responseEntity);
+        Mockito.when(accessionReconcilationService.commonService.executeService(scsbCircUrl,RecapConstants.ACCESSION_RECOCILIATION_URL, HttpMethod.POST)).thenReturn(RecapConstants.SUCCESS);
 
         Mockito.when(accessionReconcilationService.accessionReconcilation(scsbCircUrl)).thenCallRealMethod();
         String status = accessionReconcilationService.accessionReconcilation(scsbCircUrl);

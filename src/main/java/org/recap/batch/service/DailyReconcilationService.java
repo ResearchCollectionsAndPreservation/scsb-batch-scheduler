@@ -22,6 +22,6 @@ public class DailyReconcilationService {
      * @return status of the daily reconciliation process
      */
     public String dailyReconcilation(String scsbCoreUrl) {
-        return commonService.executeService(scsbCoreUrl,  RecapConstants.DAILY_RECONCILATION_URL, HttpMethod.POST);
+        return commonService.executeService(scsbCoreUrl,  RecapConstants.DAILY_RECONCILIATION_URL, HttpMethod.POST);
     }
 }

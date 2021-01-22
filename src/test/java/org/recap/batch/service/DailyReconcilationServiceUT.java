@@ -48,8 +48,8 @@ public class DailyReconcilationServiceUT extends BaseTestCase {
         ResponseEntity<String> responseEntity = new ResponseEntity<>(RecapConstants.SUCCESS, HttpStatus.OK);
         ReflectionTestUtils.setField(dailyReconcilationService,"commonService",commonService);
         Mockito.when(dailyReconcilationService.commonService.getRestTemplate()).thenReturn(restTemplate);
-        Mockito.when(dailyReconcilationService.commonService.getRestTemplate().exchange(solrCircUrl +RecapConstants.DAILY_RECONCILATION_URL, HttpMethod.POST, httpEntity, String.class)).thenReturn(responseEntity);
-        Mockito.when(dailyReconcilationService.commonService.executeService(solrCircUrl,  RecapConstants.DAILY_RECONCILATION_URL, HttpMethod.POST)).thenReturn(responseEntity.getBody());
+        Mockito.when(dailyReconcilationService.commonService.getRestTemplate().exchange(solrCircUrl +RecapConstants.DAILY_RECONCILIATION_URL, HttpMethod.POST, httpEntity, String.class)).thenReturn(responseEntity);
+        Mockito.when(dailyReconcilationService.commonService.executeService(solrCircUrl,  RecapConstants.DAILY_RECONCILIATION_URL, HttpMethod.POST)).thenReturn(responseEntity.getBody());
         Mockito.when(dailyReconcilationService.dailyReconcilation(solrCircUrl)).thenCallRealMethod();
         String status = dailyReconcilationService.dailyReconcilation(solrCircUrl);
         assertNotNull(status);

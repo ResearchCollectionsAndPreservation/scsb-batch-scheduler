@@ -21,6 +21,6 @@ public class AccessionReconcilationService {
      * @return status of the accession reconciliation process
      */
     public String accessionReconcilation(String scsbCoreUrl) {
-        return commonService.executeService(scsbCoreUrl,  RecapConstants.ACCESSION_RECOCILATION_URL, HttpMethod.POST);
+        return commonService.executeService(scsbCoreUrl,  RecapConstants.ACCESSION_RECOCILIATION_URL, HttpMethod.POST);
     }
 }
