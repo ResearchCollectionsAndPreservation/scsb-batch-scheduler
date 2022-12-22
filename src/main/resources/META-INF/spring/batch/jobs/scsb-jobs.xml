@@ -277,4 +277,12 @@
 
     <bean id="dataDumpTriggerJob" class="org.recap.batch.job.DataExportTriggerJobTasklet"/>
 
+    <batch:job id="GatewayRequestLogsNotification" restartable="true">
+        <batch:step id="GatewayRequestLogNotificationStep" allow-start-if-complete="true">
+            <batch:tasklet ref="gatewayRequestLogNotificationTasklet"/>
+        </batch:step>
+    </batch:job>
+
+    <bean id="gatewayRequestLogNotificationTasklet" class="org.recap.batch.job.GatewayRequestLogNotificationTasklet"/>
+
 </beans>

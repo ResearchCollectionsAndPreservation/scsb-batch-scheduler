@@ -47,6 +47,9 @@ public class JobCommonTasklet {
     @Value("${" + PropertyKeyConstants.SCSB_ETL_URL + "}")
     protected String scsbEtlUrl;
 
+    @Value("${" + PropertyKeyConstants.SCSB_ETL_DATADUMP_URL + "}")
+    protected String scsbEtlUrlFullExport;
+
     @Autowired
     protected CamelContext camelContext;
 

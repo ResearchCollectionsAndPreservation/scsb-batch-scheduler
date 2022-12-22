@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -73,5 +74,13 @@ public class CommonService {
         } else {
             requestParameterMap.put(ScsbConstants.DATE, exportStringDate);
         }
+    }
+
+    public String requestLog(String url, String jobUrl) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity httpEntity = new HttpEntity(headers);
+        ResponseEntity<String> responseEntity = getRestTemplate().exchange(url + jobUrl, HttpMethod.GET, httpEntity, String.class);
+        return responseEntity.getBody();
     }
 }
