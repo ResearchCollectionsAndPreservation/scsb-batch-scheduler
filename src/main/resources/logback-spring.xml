@@ -60,10 +60,10 @@
 	</appender>
 	
     <appender name="FILE_ROLLER_DATE_SIZE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.home}/Recap/logs/scsb-batch-scheduler/scsb-batch-scheduler.log</file>
+        <file>/recap-vol/logs/scsb-batch-scheduler/scsb-batch-scheduler.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${user.home}/Recap/logs/scsb-batch-scheduler/scsb-batch-scheduler-%d{yyyyMMMdd}.%i.log</fileNamePattern>
+            <fileNamePattern>/recap-vol/logs/scsb-batch-scheduler/scsb-batch-scheduler-%d{yyyyMMMdd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
             <!-- or whenever the file size reaches 5MB -->
             <maxFileSize>10MB</maxFileSize>
